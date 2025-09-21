@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Black Background Website</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background-color: #000;
+      font-family: Arial, sans-serif;
+      color: #fff;
+    }
+
+    /* Admin button: top-right, 89px, image-only */
+    #adminBtn {
+      position: fixed;
+      top: 0;
+      right: 10px;
+      width: 89px;
+      height: 89px;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      z-index: 1000;
+      background: none;
+    }
+
+    #adminBtn img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Admin panel */
+    #adminPanel {
+      position: fixed;
+      top: 95px; 
+      right: 10px;
+      background-color: #111;
+      padding: 15px;
+      border-radius: 8px;
+      display: none;
+      width: 240px;
+      z-index: 999;
+    }
+
+    #adminPanel .section {
+      margin-bottom: 15px;
+    }
+
+    #adminPanel .section-title {
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    #adminPanel button {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      background-color: #222;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    #headerImage {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    #fileInput {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Admin Button -->
+  <button id="adminBtn">
+    <img id="adminIcon" src="" alt="">
+  </button>
+
+  <!-- Admin Panel -->
+  <div id="adminPanel">
+
+    <!-- Header Image Section -->
+    <div class="section">
+      <div class="section-title">Header Image</div>
+      <button id="addHeaderBtn">Add Image</button>
+      <button id="removeHeaderBtn">Remove Image</button>
+    </div>
+
+    <!-- Admin Button Image Section -->
+    <div class="section">
+      <div class="section-title">Admin Button Image</div>
+      <button id="addAdminBtnImg">Add Image</button>
+      <button id="removeAdminBtnImg">Remove Image</button>
+    </div>
+
+  </div>
+
+  <!-- File Input -->
+  <input type="file" id="fileInput" accept="image/*">
+
+  <!-- Header Image -->
+  <img id="headerImage" src="" alt="">
+
+  <script>
+    const adminBtn = document.getElementById('adminBtn');
+    const adminIcon = document.getElementById('adminIcon');
+    const adminPanel = document.getElementById('adminPanel');
+    const fileInput = document.getElementById('fileInput');
+    const headerImage = document.getElementById('headerImage');
+
+    // Buttons
+    const addHeaderBtn = document.getElementById('addHeaderBtn');
+    const removeHeaderBtn = document.getElementById('removeHeaderBtn');
+    const addAdminBtnImg = document.getElementById('addAdminBtnImg');
+    const removeAdminBtnImg = document.getElementById('removeAdminBtnImg');
+
+    let currentUpload = null; // "header" or "adminBtn"
+
+    // Toggle admin panel
+    adminBtn.addEventListener('click', () => {
+      adminPanel.style.display = adminPanel.style.display === 'none' ? 'block' : 'none';
+    });
+
+    // Load images from server
+    function loadImages() {
+      fetch('/images') // this endpoint should return JSON {header: "url", admin: "url"}
+        .then(res => res.json())
+        .then(data => {
+          if(data.header) headerImage.src = data.header;
+          if(data.admin) adminIcon.src = data.admin;
+        });
+    }
+
+    loadImages();
+    setInterval(loadImages, 5000); // optional: refresh every 5s to see updates
+
+    // Add image handlers
+    addHeaderBtn.addEventListener('click', () => { currentUpload='header'; fileInput.click(); });
+    addAdminBtnImg.addEventListener('click', () => { currentUpload='adminBtn'; fileInput.click(); });
+
+    // Remove image handlers
+    removeHeaderBtn.addEventListener('click', () => {
+      fetch('/remove?image=header', { method: 'POST' }).then(loadImages);
+    });
+    removeAdminBtnImg.addEventListener('click', () => {
+      fetch('/remove?image=admin', { method: 'POST' }).then(loadImages);
+    });
+
+    // Upload selected image
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if(!file) return;
+
+      const formData = new FormData();
+      formData.append('image', file);
+      formData.append('type', currentUpload);
+
+      fetch('/upload', { method: 'POST', body: formData })
+        .then(res => res.json())
+        .then(() => loadImages());
+    });
+  </script>
+
+</body>
+</html>
