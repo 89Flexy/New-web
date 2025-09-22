@@ -44,33 +44,270 @@
 </style>
 <style id='global-styles-inline-css' type='text/css'>
 :root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
-:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
-:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
-:root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Website with Admin, OTT & Posters</title>
+<style>
+:root{
+  --bg:#000;
+  --nav-bg:#111;
+  --muted:#aaa;
+  --active:#00e0ff;
+}
+body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:#fff;padding-bottom:55px;}
+header{position:relative;width:100%;}
+#headerImage{width:100%;height:auto;display:block;}
+header::after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0) 50%, rgba(0,0,0,0.7));pointer-events:none;}
+#searchContainer{position:absolute;top:70%;left:50%;transform:translate(-50%,-50%);width:180px;max-width:90%;z-index:10;}
+#searchInput{width:100%;padding:8px 12px;font-size:14px;border:2px solid #fff;border-radius:25px;background:rgba(255,255,255,0.2);color:#fff;outline:none;box-shadow:0 0 8px rgba(0,255,204,0.4);}
+#searchInput::placeholder{color:#fff;opacity:0.9;}
+#searchResult{position:absolute;top:95%;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.95);color:#fff;padding:12px 20px;border:1px solid #00ffcc;border-radius:10px;display:none;min-width:200px;z-index:20;text-align:center;box-shadow:0 0 15px rgba(0,255,204,0.5);}
+#adminBtn{position:absolute;top:0;right:0;margin:0;padding:0;border:none;background:transparent;cursor:pointer;z-index:1000;}
+#adminBtn img{width:250px;height:auto;display:block;object-fit:contain;}
+footer{display:none;}
+#loginBox{display:none;position:fixed;top:50px;right:10px;width:250px;padding:20px;background:#111;border:2px solid #00ffcc;border-radius:10px;z-index:2000;}
+#loginBox input{width:100%;padding:8px;margin:8px 0;border-radius:5px;border:1px solid #fff;background:#000;color:#fff;outline:none;}
+#loginBox button{width:100%;padding:8px;background:#00ffcc;border:none;font-weight:bold;cursor:pointer;}
+#loginMsg{color:#ff5555;display:none;margin-top:5px;}
+#adminDashboard{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#000;overflow-y:auto;z-index:9999;color:#fff;}
+#adminControls{padding:20px;text-align:center;}
+#adminControls button{padding:10px 20px;margin:10px;background:#00ffcc;border:none;font-weight:bold;cursor:pointer;}
+#adminControls img{max-width:200px;margin:10px 0;}
+#imageInput,#logoInput,#ottInput,#movieInput1,#movieInput2{display:none;}
+/* OTT Section */
+#ottSection{padding:120px 20px 20px 20px;text-align:center;}
+#ottSection h2{color:#fff;font-size:22px;margin-bottom:15px;text-align:center;}
+.ott-slider{display:flex;gap:15px;overflow-x:auto;overflow-y:hidden;scroll-behavior:smooth;flex-wrap:nowrap;padding:10px 15px;box-sizing:border-box;}
+.ott-slider img{width:90px;height:90px;border-radius:12px;cursor:pointer;object-fit:contain;background:#000;transition:0.3s;box-shadow:0 0 8px rgba(0,200,255,0.5);margin-top:10px;}
+.ott-slider img.active-ott{transform:scale(1.05);box-shadow:0 0 16px rgba(0,200,255,0.9);}
+/* Posters Section */
+.row-scroll{display:flex;gap:12px;overflow-x:auto;padding:16px 12px;}
+.row-scroll::-webkit-scrollbar{height:8px}
+.row-scroll::-webkit-scrollbar-thumb{background:#333;border-radius:6px}
+.movie-card{width:150px;height:85px;border-radius:8px;flex:0 0 auto;object-fit:cover;border:1px solid #222;background:#111;}
+@media (max-width:420px){.movie-card{width:120px;height:70px}}
+/* Bottom nav */
+.bottom-nav{position:fixed;left:0;right:0;bottom:0;height:40px;background:linear-gradient(180deg,var(--nav-bg),#0f0f0f);display:flex;justify-content:space-around;align-items:center;border-top:1px solid #222;z-index:5000;padding:0 4px;}
+.bottom-nav a{flex:1;max-width:85px;text-align:center;color:var(--muted);text-decoration:none;font-size:11px;transition:color .2s ease, transform .2s ease;position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.bottom-nav a svg{width:17px;height:17px;stroke:white;margin-bottom:2px;transition:stroke .25s ease;}
+.bottom-nav a.active{color:var(--active);transform:translateY(-1px);}
+.bottom-nav a.active svg{stroke:var(--active);}
+.bottom-nav a.active::after{content:"";position:absolute;left:50%;transform:translateX(-50%);bottom:-2px;width:20px;height:2px;background:var(--active);border-radius:50%;box-shadow:0 1px 4px rgba(0,224,255,0.35);animation:slime .3s ease;}
+@keyframes slime{0%{width:0;height:0;opacity:0.3;}40%{width:22px;height:2px;opacity:1;}100%{width:20px;height:2px;}}
+@media(max-width:600px){#searchContainer{width:80%;top:75%;}#searchInput{font-size:14px;padding:8px 12px;}#adminBtn img{width:200px;}#loginBox{width:200px;}.ott-slider img{width:70px;height:70px;margin-top:8px;}}
 </style>
-<link rel='stylesheet' id='TOROFILM_Theme-css' href='https://watchanimeworld.in/wp-content/themes/torofilm/public/css/torofilm-public.css?ver=1747296233' type='text/css' media='all' />
-<script type="text/javascript" src="https://watchanimeworld.in/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script>
-<script type="text/javascript" src="https://watchanimeworld.in/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1" id="jquery-migrate-js"></script>
-<link rel="icon" href="https://watchanimeworld.in/wp-content/uploads/cropped-AW_Smiley-32x32.png" sizes="32x32" />
-<link rel="icon" href="https://watchanimeworld.in/wp-content/uploads/cropped-AW_Smiley-192x192.png" sizes="192x192" />
-<link rel="apple-touch-icon" href="https://watchanimeworld.in/wp-content/uploads/cropped-AW_Smiley-180x180.png" />
-<meta name="msapplication-TileImage" content="https://watchanimeworld.in/wp-content/uploads/cropped-AW_Smiley-270x270.png" />
-		<style type="text/css" id="wp-custom-css">
-			/* Main menu container */
-#mainMenu {
-    /* Keeping position-related rules commented */
-    /* position:fixed; */
-    /* bottom:0; */
-    /* overflow:hidden; */
-    /* position: absolute; */
-}
+</head>
+<body>
+<div id="mainPage">
+  <header id="header">
+    <img id="headerImage" src="https://i.ibb.co/k60Jv9Fc/1000040701.jpg" alt="Header Image">
+    <button id="adminBtn"><img id="adminBtnLogo" src="https://i.ibb.co/zhWf2FPP/1000040695.png" alt="Admin Logo"></button>
+    <div id="searchContainer"><input type="text" id="searchInput" placeholder="Search"></div>
+    <div id="searchResult"></div>
+  </header>
 
-/* Individual list items */
-li.li {
-    display: inline-block;
-    text-align: center;
-    width: calc(100% / 6 - 4px) !important;
+  <!-- OTT -->
+  <section id="ottSection">
+    <h2>More OTT Apps Coming Soon</h2>
+    <div class="ott-slider" id="ottSlider"></div>
+  </section>
+
+  <!-- Posters -->
+  <section id="moviePostersSection" style="padding:20px;">
+    <h2 style="text-align:left;font-size:20px;margin:10px 12px;">Latest Movies / Webseries</h2>
+    <div class="row-scroll" id="movieRow1"></div>
+    <div class="row-scroll" id="movieRow2"></div>
+  </section>
+</div>
+
+<!-- Admin Login -->
+<div id="loginBox">
+  <h3>Admin Login</h3>
+  <input type="password" id="adminPassword" placeholder="Enter Password">
+  <button id="loginBtn">Login</button>
+  <p id="loginMsg">Wrong Password!</p>
+</div>
+
+<!-- Admin Dashboard -->
+<div id="adminDashboard">
+  <header>
+    <h1 style="text-align:center;">Admin Dashboard</h1>
+    <button id="logoutBtn" style="position:absolute;top:10px;right:10px;padding:10px;background:#00ffcc;border:none;cursor:pointer;">Logout</button>
+  </header>
+  <div id="adminControls">
+    <h2>Change Header Image</h2>
+    <img id="adminHeaderPreview" src="https://i.ibb.co/k60Jv9Fc/1000040701.jpg" alt="Header Preview"><br>
+    <button id="changeHeaderBtn">Choose Header Image</button><br><br>
+    <h2>Change Admin Logo</h2>
+    <img id="adminLogoPreview" src="https://i.ibb.co/zhWf2FPP/1000040695.png" alt="Admin Logo Preview"><br>
+    <button id="changeLogoBtn">Choose Logo</button><br><br>
+    <h2>Manage OTT Images</h2>
+    <div id="ottAdminControls"></div>
+    <button id="addOttBtn">Add New OTT Image</button>
+    <input type="file" id="imageInput" accept="image/*">
+    <input type="file" id="logoInput" accept="image/*">
+    <input type="file" id="ottInput" accept="image/*"><br><br>
+    <h2>Manage Movie Posters (Row 1)</h2>
+    <div id="movieAdminControls1"></div>
+    <button id="addMovieBtn1">Add Poster Row 1</button>
+    <input type="file" id="movieInput1" accept="image/*"><br><br>
+    <h2>Manage Movie Posters (Row 2)</h2>
+    <div id="movieAdminControls2"></div> 
+    <button id="addMovieBtn2">Add Poster Row 2</button>
+    <input type="file" id="movieInput2" accept="image/*">
+  </div>
+</div>
+
+<!-- Bottom Navigation with Icons -->
+<nav class="bottom-nav">
+  <a href="#" data-tab="home" class="active">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M3 9.75L12 3l9 6.75V21a.75.75 0 01-.75.75H3.75A.75.75 0 013 21V9.75z"/>
+    </svg>
+    Home
+  </a>
+  <a href="#" data-tab="movies">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M4 4h16v16H4V4zm4 0v16M16 4v16"/>
+    </svg>
+    Movies
+  </a>
+  <a href="#" data-tab="series">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 3l9 6-9 6-9-6 9-6zM3 15l9 6 9-6"/>
+    </svg>
+    Series
+  </a>
+  <a href="#" data-tab="anime">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c4.5 0 9 1.5 9 6s-4.5 9-9 9-9-4.5-9-9 4.5-6 9-6z"/>
+      <path stroke-linecap="round" stroke-linejoin="round" d="M9 10h.01M15 10h.01M9 15c1.5 1 4.5 1 6 0"/>
+    </svg>
+    Anime
+  </a>
+</nav>
+
+<script>
+// ====== ADMIN LOGIN ======
+const adminBtn=document.getElementById('adminBtn');
+const loginBox=document.getElementById('loginBox');
+const loginBtn=document.getElementById('loginBtn');
+const adminPassword=document.getElementById('adminPassword');
+const loginMsg=document.getElementById('loginMsg');
+const adminDashboard=document.getElementById('adminDashboard');
+const mainPage=document.getElementById('mainPage');
+const logoutBtn=document.getElementById('logoutBtn');
+const headerImage=document.getElementById('headerImage');
+const adminHeaderPreview=document.getElementById('adminHeaderPreview');
+const adminLogoPreview=document.getElementById('adminLogoPreview');
+const imageInput=document.getElementById('imageInput');
+const logoInput=document.getElementById('logoInput');
+const ottInput=document.getElementById('ottInput');
+const ottSlider=document.getElementById('ottSlider');
+const ottAdminControls=document.getElementById('ottAdminControls');
+const addOttBtn=document.getElementById('addOttBtn');
+
+// Default OTT Images
+const defaultOttImages = [
+  'https://i.ibb.co/JRjJMvgN/Netflix-Symbol.png',
+  'https://i.ibb.co/jP4bzQ3j/718b41945aab84bd2276c762266931d0.jpg',
+  'https://i.ibb.co/RksFMDqb/20250920-174316.jpg',
+  'https://i.ibb.co/TB1KkqcX/Screen-Shot-2018-02-26-at-10-53-26-PM.png',
+  'https://i.ibb.co/My31r5YW/1000040725.jpg'
+];
+
+// login
+adminBtn.addEventListener('click',()=>{loginBox.style.display=loginBox.style.display==='block'?'none':'block';loginMsg.style.display='none';adminPassword.value='';});
+loginBtn.addEventListener('click',()=>{if(adminPassword.value==='EDITFLEX'){loginBox.style.display='none';adminDashboard.style.display='block';mainPage.style.display='none';}else loginMsg.style.display='block';});
+logoutBtn.addEventListener('click',()=>{adminDashboard.style.display='none';mainPage.style.display='block';});
+
+// header/logo
+document.getElementById('changeHeaderBtn').addEventListener('click',()=>imageInput.click());
+imageInput.addEventListener('change',e=>{const file=e.target.files[0];if(file){const r=new FileReader();r.onload=ev=>{headerImage.src=ev.target.result;adminHeaderPreview.src=ev.target.result;localStorage.setItem('headerImage',ev.target.result);};r.readAsDataURL(file);}});
+document.getElementById('changeLogoBtn').addEventListener('click',()=>logoInput.click());
+logoInput.addEventListener('change',e=>{const file=e.target.files[0];if(file){const r=new FileReader();r.onload=ev=>{adminLogoPreview.src=ev.target.result;document.getElementById('adminBtnLogo').src=ev.target.result;localStorage.setItem('adminLogo',ev.target.result);};r.readAsDataURL(file);}});
+
+// ====== OTT ======
+function loadOttImages(){
+    let arr = JSON.parse(localStorage.getItem('ottImages')||'[]');
+    if(arr.length===0){arr = defaultOttImages; localStorage.setItem('ottImages', JSON.stringify(arr));}
+    ottSlider.innerHTML='';
+    arr.forEach(src=>{let img=document.createElement('img'); img.src=src; ottSlider.appendChild(img);});
+    renderOttAdminControls();
 }
+function renderOttAdminControls(){
+    ottAdminControls.innerHTML='';
+    let arr=JSON.parse(localStorage.getItem('ottImages'));
+    arr.forEach((src,i)=>{
+        let d=document.createElement('div');
+        d.innerHTML=`<img src="${src}" style="width:100px;height:60px;object-fit:cover"><br><button data-i="${i}" class="chg">Change</button><button data-i="${i}" class="del">Delete</button>`;
+        ottAdminControls.appendChild(d);
+    });
+    ottAdminControls.querySelectorAll('.chg').forEach(b=>{b.onclick=()=>{ottInput.dataset.action="change";ottInput.dataset.index=b.dataset.i;ottInput.click();};});
+    ottAdminControls.querySelectorAll('.del').forEach(b=>{b.onclick=()=>{let arr=JSON.parse(localStorage.getItem('ottImages'));arr.splice(b.dataset.i,1);localStorage.setItem('ottImages',JSON.stringify(arr));loadOttImages();};});
+}
+addOttBtn.onclick=()=>{ottInput.dataset.action="add";ottInput.click();};
+ottInput.onchange=e=>{const f=e.target.files[0];if(f){const r=new FileReader();r.onload=ev=>{let arr=JSON.parse(localStorage.getItem('ottImages')); if(ottInput.dataset.action==="add"){arr.push(ev.target.result);}else{arr[ottInput.dataset.index]=ev.target.result;} localStorage.setItem('ottImages',JSON.stringify(arr)); loadOttImages();};r.readAsDataURL(f);}};
+
+// ====== MOVIE POSTERS (2 Rows) ======
+const movieRow1=document.getElementById('movieRow1');
+const movieRow2=document.getElementById('movieRow2');
+const movieInput1=document.getElementById('movieInput1');
+const movieInput2=document.getElementById('movieInput2');
+const movieAdminControls1=document.getElementById('movieAdminControls1');
+const movieAdminControls2=document.getElementById('movieAdminControls2');
+
+document.getElementById('addMovieBtn1').onclick = () => { movieInput1.dataset.action = "add"; movieInput1.dataset.key = "moviePosters1"; movieInput1.click(); };
+document.getElementById('addMovieBtn2').onclick = () => { movieInput2.dataset.action = "add"; movieInput2.dataset.key = "moviePosters2"; movieInput2.click(); };
+
+function loadMoviePosters(key, row, admin, input) {
+    let arr = JSON.parse(localStorage.getItem(key) || '[]');
+    row.innerHTML = '';
+    arr.forEach(src => { let img = document.createElement('img'); img.src = src; img.className = 'movie-card'; row.appendChild(img); });
+    renderMovieAdminControls(key, admin, input);
+}
+function renderMovieAdminControls(key, admin, input) {
+    admin.innerHTML = '';
+    let arr = JSON.parse(localStorage.getItem(key) || '[]');
+    arr.forEach((src,i)=>{
+        let d=document.createElement('div');
+        d.innerHTML=`<img src="${src}" style="width:100px;height:60px;object-fit:cover"><br>
+                     <button data-i="${i}" class="chg">Change</button>
+                     <button data-i="${i}" class="del">Delete</button>`;
+        admin.appendChild(d);
+    });
+    admin.querySelectorAll('.chg').forEach(b=>{b.onclick=()=>{input.dataset.action="change";input.dataset.index=b.dataset.i;input.dataset.key=key;input.click();};});
+    admin.querySelectorAll('.del').forEach(b=>{b.onclick=()=>{let arr=JSON.parse(localStorage.getItem(key)||'[]'); arr.splice(b.dataset.i,1); localStorage.setItem(key,JSON.stringify(arr)); loadMoviePosters(key,(key==='moviePosters1'?movieRow1:movieRow2),(key==='moviePosters1'?movieAdminControls1:movieAdminControls2),input);};});
+}
+function handleMovieInput(input){
+    input.onchange=e=>{
+        const f=e.target.files[0];
+        if(f){const r=new FileReader(); r.onload=ev=>{
+            let key=input.dataset.key;
+            let arr=JSON.parse(localStorage.getItem(key)||'[]');
+            if(input.dataset.action==="add"){arr.push(ev.target.result);} else {arr[input.dataset.index]=ev.target.result;}
+            localStorage.setItem(key,JSON.stringify(arr));
+            loadMoviePosters(key,(key==='moviePosters1'?movieRow1:movieRow2),(key==='moviePosters1'?movieAdminControls1:movieAdminControls2),input);
+        }; r.readAsDataURL(f);}
+    };
+}
+handleMovieInput(movieInput1);
+handleMovieInput(movieInput2);
+
+window.onload = ()=>{
+    if(localStorage.getItem('headerImage')) headerImage.src = localStorage.getItem('headerImage');
+    if(localStorage.getItem('adminLogo')) document.getElementById('adminBtnLogo').src = localStorage.getItem('adminLogo');
+    loadOttImages();
+    loadMoviePosters('moviePosters1', movieRow1, movieAdminControls1, movieInput1);
+    loadMoviePosters('moviePosters2', movieRow2, movieAdminControls2, movieInput2);
+};
+</script>
+</body>
+</html>
+
 
 /* Links inside menu items */
 a.botao {
