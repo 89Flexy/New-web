@@ -1,12 +1,9 @@
-<!-- Replace your existing file or merge these parts.
-   This is your page with an admin image manager modal & JS.
--->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Website with Admin, OTT & Posters</title>
+<title>Website with OTT & Posters</title>
 <style>
 :root{
   --bg:#000;
@@ -22,21 +19,21 @@ header::after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;b
 #searchInput{width:100%;padding:8px 12px;font-size:14px;border:2px solid #fff;border-radius:25px;background:rgba(255,255,255,0.2);color:#fff;outline:none;box-shadow:0 0 8px rgba(0,255,204,0.4);}
 #searchInput::placeholder{color:#fff;opacity:0.9;}
 #searchResult{position:absolute;top:95%;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.95);color:#fff;padding:12px 20px;border:1px solid #00ffcc;border-radius:10px;display:none;min-width:200px;z-index:20;text-align:center;box-shadow:0 0 15px rgba(0,255,204,0.5);}
-#adminBtn{position:absolute;top:0;right:0;margin:0;padding:0;border:none;background:transparent;cursor:pointer;z-index:1000;}
+#adminBtn{position:absolute;top:0;right:0;margin:0;padding:0;border:none;background:transparent;cursor:default;z-index:1000;}
 #adminBtn img{width:250px;height:auto;display:block;object-fit:contain;}
 footer{display:none;}
 /* OTT Section */
 #ottSection{padding:120px 20px 20px 20px;text-align:center;}
 #ottSection h2{color:#fff;font-size:22px;margin-bottom:15px;text-align:center;}
 .ott-slider{display:flex;gap:15px;overflow-x:auto;overflow-y:hidden;scroll-behavior:smooth;flex-wrap:nowrap;padding:10px 15px;box-sizing:border-box;}
-.ott-slider img{cursor:pointer;object-fit:contain;background:#000;transition:0.3s;box-shadow:0 0 8px rgba(0,200,255,0.5);margin-top:10px;}
+.ott-slider img{width:90px;height:90px;border-radius:12px;cursor:pointer;object-fit:contain;background:#000;transition:0.3s;box-shadow:0 0 8px rgba(0,200,255,0.5);margin-top:10px;}
 .ott-slider img.active-ott{transform:scale(1.05);box-shadow:0 0 16px rgba(0,200,255,0.9);}
 /* Posters Section */
 .row-scroll{display:flex;gap:12px;overflow-x:auto;padding:16px 12px;}
 .row-scroll::-webkit-scrollbar{height:8px}
 .row-scroll::-webkit-scrollbar-thumb{background:#333;border-radius:6px}
-.movie-card{flex:0 0 auto;object-fit:cover;border:1px solid #222;background:#111;width:140px;height:200px;}
-.movie-card.small{width:110px;height:150px;}
+.movie-card{width:150px;height:85px;border-radius:8px;flex:0 0 auto;object-fit:cover;border:1px solid #222;background:#111;}
+@media (max-width:420px){.movie-card{width:120px;height:70px}}
 /* Bottom nav */
 .bottom-nav{position:fixed;left:0;right:0;bottom:0;height:40px;background:linear-gradient(180deg,var(--nav-bg),#0f0f0f);display:flex;justify-content:space-around;align-items:center;border-top:1px solid #222;z-index:5000;padding:0 4px;}
 .bottom-nav a{flex:1;max-width:85px;text-align:center;color:var(--muted);text-decoration:none;font-size:11px;transition:color .2s ease, transform .2s ease;position:relative;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;}
@@ -45,74 +42,51 @@ footer{display:none;}
 .bottom-nav a.active svg{stroke:var(--active);}
 .bottom-nav a.active::after{content:"";position:absolute;left:50%;transform:translateX(-50%);bottom:-2px;width:20px;height:2px;background:var(--active);border-radius:50%;box-shadow:0 1px 4px rgba(0,224,255,0.35);animation:slime .3s ease;}
 @keyframes slime{0%{width:0;height:0;opacity:0.3;}40%{width:22px;height:2px;opacity:1;}100%{width:20px;height:2px;}}
-@media(max-width:600px){#searchContainer{width:80%;top:75%;}#searchInput{font-size:14px;padding:8px 12px;}#adminBtn img{width:200px;}.ott-slider img{margin-top:8px;}}
-
-/* --- ADMIN MODAL STYLES --- */
-.admin-modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.7);display:none;align-items:center;justify-content:center;z-index:10000;padding:16px;}
-.admin-modal{width:100%;max-width:920px;background:#0b0b0b;border-radius:10px;padding:14px;border:1px solid #222;box-shadow:0 10px 40px rgba(0,0,0,0.8);color:#fff;max-height:85vh;overflow:auto;}
-.admin-modal h3{margin:0 0 8px 0;font-size:18px;}
-.admin-controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;}
-.admin-controls button{background:transparent;border:1px solid #333;padding:6px 8px;border-radius:6px;color:#fff;cursor:pointer;}
-.img-row{display:flex;gap:8px;align-items:center;padding:8px;border-radius:8px;border:1px solid #1a1a1a;margin-bottom:8px;background:linear-gradient(180deg,#050505,#0b0b0b);box-shadow:inset 0 0 20px rgba(255,255,255,0.01);}
-.img-row img.preview{width:84px;height:56px;object-fit:cover;border-radius:4px;border:1px solid #222;background:#111;}
-.img-row .meta{flex:1;display:flex;flex-direction:column;gap:6px;}
-.img-row input[type="text"]{width:100%;padding:6px;border-radius:6px;border:1px solid #222;background:#0b0b0b;color:#fff;}
-.row-actions{display:flex;flex-direction:column;gap:6px;margin-left:6px;}
-.small-muted{font-size:12px;color:#9aa;}
-
-/* responsive */
-@media(max-width:740px){
-  .img-row{flex-direction:column;align-items:flex-start;}
-  .row-actions{flex-direction:row;width:100%;justify-content:space-between;}
-  .img-row img.preview{width:100%;height:120px;}
-}
+@media(max-width:600px){#searchContainer{width:80%;top:75%;}#searchInput{font-size:14px;padding:8px 12px;}#adminBtn img{width:200px;}.ott-slider img{width:70px;height:70px;margin-top:8px;}}
 </style>
 </head>
 <body>
 <div id="mainPage">
   <header id="header">
-    <img id="headerImage" src="https://i.ibb.co/k60Jv9Fc/1000040701.jpg" alt="Header Image">
-    <button id="adminBtn" title="Open Admin"><img id="adminBtnLogo" src="https://i.ibb.co/zhWf2FPP/1000040695.png" alt="Admin Logo"></button>
+    <img id="headerImage" src="https://i.ibb.co/sdYjSMLn/1e5f9cd165d869f33ec941f26861898a.jpg" alt="Header Image">
+    <!-- Admin Button -->
+    <button id="adminBtn"><img id="adminBtnLogo" src="https://i.ibb.co/TBBXXVDg/20250920-142129.png" alt="Admin Logo"></button>
     <div id="searchContainer"><input type="text" id="searchInput" placeholder="Search"></div>
     <div id="searchResult"></div>
   </header>
-
   <!-- OTT -->
   <section id="ottSection">
     <h2>More OTT Apps Coming Soon</h2>
     <div class="ott-slider" id="ottSlider">
-      <img src="https://i.ibb.co/JRjJMvgN/Netflix-Symbol.png" alt="Netflix">
-      <img src="https://i.ibb.co/jP4bzQ3j/718b41945aab84bd2276c762266931d0.jpg" alt="OTT2">
-      <img src="https://i.ibb.co/RksFMDqb/20250920-174316.jpg" alt="OTT3">
-      <img src="https://i.ibb.co/TB1KkqcX/Screen-Shot-2018-02-26-at-10-53-26-PM.png" alt="OTT4">
-      <img src="https://i.ibb.co/My31r5YW/1000040725.jpg" alt="OTT5">
+      <img src="https://i.ibb.co/XrNRtRtZ/Netflix-Symbol.png" alt="Netflix">
+      <img src="https://i.ibb.co/FL4Yq9WK/718b41945aab84bd2276c762266931d0.jpg" alt="Prime Video">
+      <img src="https://i.ibb.co/NntYQ8pK/20250920-174316.jpg" alt="JioHotstar">
+      <img src="https://i.ibb.co/yn8LKP2G/Screen-Shot-2018-02-26-at-10-53-26-PM.png" alt="Crunchyroll">
+      <img src="https://i.ibb.co/VW7MSXJS/b55dd53b92a36348bde3994500a1a593.jpg" alt="MX Player">
     </div>
   </section>
-
   <!-- Posters -->
   <section id="moviePostersSection" style="padding:20px;">
     <h2 style="text-align:left;font-size:20px;margin:10px 12px;">Latest Movies / Webseries</h2>
     <div class="row-scroll" id="movieRow1">
-      <img class="movie-card" src="https://i.ibb.co/gZPyShRt/manjummel-boys-1.jpg" alt="Poster1">
-      <img class="movie-card" src="https://i.ibb.co/3yCSZnKV/Tumbbad-Movie-1024x574.png" alt="Poster2">
-      <img class="movie-card" src="https://i.ibb.co/F47gRY5k/Sitaare-Zameen-Par-1746448219357-1746448231111.jpg" alt="Poster3">
-      <img class="movie-card" src="https://i.ibb.co/84GKRpS4/stree-2-review-150343674-16x9-0.jpg" alt="Poster4">
-      <img class="movie-card" src="https://i.ibb.co/tT4WcrkR/SQUID-GAME-SEASON-2-Stair-Maze-Key-Art-EN-GB-1.jpg" alt="Poster5">
+      <img src="https://i.ibb.co/5gWgkvP6/Tumbbad-Movie-1024x574.png" class="movie-card">
+      <img src="https://i.ibb.co/SXDzXXJD/manjummel-boys-1.jpg" class="movie-card">
+      <img src="https://i.ibb.co/cXQ8bf3S/Sitaare-Zameen-Par-1746448219357-1746448231111.jpg" class="movie-card">
+      <img src="https://i.ibb.co/7Nz2sTpH/3-Idiots.jpg" class="movie-card">
+      <img src="https://i.ibb.co/Kp3VxMLk/7e6418465c04470037053a25a299d3d09de643dde79511fb0a7b66227fd518e9.png" class="movie-card">
     </div>
     <div class="row-scroll" id="movieRow2">
-      <img class="movie-card" src="https://i.ibb.co/v4SXpnWK/test-pic1749704959913.webp" alt="Poster1">
-      <img class="movie-card" src="https://i.ibb.co/0ykhzJDx/3-Idiots.jpg" alt="Poster2">
-      <img class="movie-card" src="https://i.ibb.co/4wT0DkNy/bg7.jpg" alt="Poster3">
-      <img class="movie-card" src="https://i.ibb.co/NgxddkRm/netflix-stranger-things-poster.jpg" alt="Poster4">
-      <img class="movie-card" src="https://i.ibb.co/7d1dfvKG/414929.png" alt="Poster5">
-      <img class="movie-card" src="https://i.ibb.co/fddBz00X/7e6418465c04470037053a25a299d3d09de643dde79511fb0a7b66227fd518e9.png" alt="Poster6">
-      <img class="movie-card" src="https://i.ibb.co/gbM4n3T4/maxresdefault2-1580819060.jpg" alt="Poster7">
-      <img class="movie-card" src="https://i.ibb.co/pB0C79zn/6c524de6e42e226d0850c1952aa74ac3c762e3b4567d6436919fc391c920fe1b.jpg" alt="Poster8">
-      <img class="movie-card" src="https://i.ibb.co/gbM4n3T4/maxresdefault2-1580819060.jpg" alt="Poster9">
+      <img src="https://i.ibb.co/wNGpsZHR/test-pic1749704959913.webp" class="movie-card">
+      <img src="https://i.ibb.co/HDS2cMrj/SQUID-GAME-SEASON-2-Stair-Maze-Key-Art-EN-GB-1.jpg" class="movie-card">
+      <img src="https://i.ibb.co/MDZz0vtk/netflix-stranger-things-poster.jpg" class="movie-card">
+      <img src="https://i.ibb.co/6cpw6fKp/stree-2-review-150343674-16x9-0.jpg" class="movie-card">
+      <img src="https://i.ibb.co/7NjGz3jF/414929.png" class="movie-card">
+      <img src="https://i.ibb.co/HL3Yq2LB/Pathaan-6.jpg" class="movie-card">
+      <img src="https://i.ibb.co/rRVQHKJB/6c524de6e42e226d0850c1952aa74ac3c762e3b4567d6436919fc391c920fe1b.jpg" class="movie-card">
+      <img src="https://i.ibb.co/0p0kc4qq/maxresdefault2-1580819060.jpg" class="movie-card">
     </div>
   </section>
 </div>
-
 <!-- Bottom Navigation with Icons -->
 <nav class="bottom-nav">
   <a href="#" data-tab="home" class="active">
@@ -141,356 +115,5 @@ footer{display:none;}
     Anime
   </a>
 </nav>
-
-<!-- --- ADMIN MODAL HTML (hidden by default) --- -->
-<div class="admin-modal-backdrop" id="adminBackdrop" aria-hidden="true">
-  <div class="admin-modal" role="dialog" aria-modal="true" aria-labelledby="adminTitle">
-    <h3 id="adminTitle">Image Manager (Admin) — Password: <span class="small-muted">admin123</span></h3>
-    <div class="admin-controls">
-      <button id="reloadFromDomBtn">Reset editor from DOM</button>
-      <button id="saveToLSBtn">Save to localStorage</button>
-      <button id="applyAllBtn">Apply all edits to page</button>
-      <button id="exportBtn">Export JSON</button>
-      <button id="importBtn">Import JSON</button>
-      <button id="closeAdminBtn" style="margin-left:auto">Close</button>
-    </div>
-
-    <div id="editorList"></div>
-
-    <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
-      <div style="flex:1;min-width:220px;">
-        <input id="newImgSrc" type="text" placeholder="New image URL (paste here)" style="width:100%;padding:8px;border-radius:6px;border:1px solid #222;background:#0b0b0b;color:#fff;">
-      </div>
-      <div style="width:160px;">
-        <input id="newImgAlt" type="text" placeholder="alt text" style="width:100%;padding:8px;border-radius:6px;border:1px solid #222;background:#0b0b0b;color:#fff;">
-      </div>
-      <div>
-        <button id="addNewImgBtn">Add Image</button>
-      </div>
-    </div>
-
-    <div style="margin-top:10px;">
-      <label class="small-muted">Export / Import JSON (copy-paste):</label>
-      <textarea id="jsonArea" style="width:100%;height:110px;background:#050505;border:1px solid #222;color:#fff;padding:8px;border-radius:6px;margin-top:6px;"></textarea>
-    </div>
-
-  </div>
-</div>
-
-<script>
-(() => {
-  const adminBtn = document.getElementById('adminBtn');
-  const adminBackdrop = document.getElementById('adminBackdrop');
-  const editorList = document.getElementById('editorList');
-  const reloadFromDomBtn = document.getElementById('reloadFromDomBtn');
-  const saveToLSBtn = document.getElementById('saveToLSBtn');
-  const applyAllBtn = document.getElementById('applyAllBtn');
-  const exportBtn = document.getElementById('exportBtn');
-  const importBtn = document.getElementById('importBtn');
-  const closeAdminBtn = document.getElementById('closeAdminBtn');
-  const addNewImgBtn = document.getElementById('addNewImgBtn');
-  const newImgSrc = document.getElementById('newImgSrc');
-  const newImgAlt = document.getElementById('newImgAlt');
-  const jsonArea = document.getElementById('jsonArea');
-
-  const LS_KEY = 'siteImages_v1';
-  const ADMIN_PASSWORD = 'admin123'; // optional simple password check
-
-  function collectImagesFromDOM() {
-    // gather all <img> elements inside #mainPage
-    const imgs = Array.from(document.querySelectorAll('#mainPage img'));
-    return imgs.map((img, idx) => ({
-      id: img.id || `img-${idx}-${Math.random().toString(36).slice(2,8)}`,
-      src: img.src,
-      alt: img.alt || '',
-      selector: generateSelectorFor(img)
-    }));
-  }
-
-  function generateSelectorFor(img) {
-    // attempt to create a short selector to locate the img later
-    if (img.id) return `#${img.id}`;
-    if (img.className) {
-      const cls = img.className.split(' ').filter(Boolean)[0];
-      if (cls) return `${img.tagName.toLowerCase()}.${cls}`;
-    }
-    // fallback: path by index among images in same parent
-    const parent = img.parentElement;
-    if (!parent) return null;
-    const siblings = Array.from(parent.querySelectorAll('img'));
-    const index = siblings.indexOf(img);
-    const pSel = parent.id ? `#${parent.id}` : parent.className ? `${parent.tagName.toLowerCase()}.${parent.className.split(' ')[0]}` : parent.tagName.toLowerCase();
-    return `${pSel} img:nth-of-type(${index+1})`;
-  }
-
-  function openAdmin() {
-    // simple password prompt (optional)
-    const pass = prompt('Enter admin password (leave empty to continue in demo mode):');
-    if (pass !== null && pass !== '' && pass !== ADMIN_PASSWORD) {
-      alert('Wrong password. If this is local/dev, leave blank to continue in demo mode.');
-      return;
-    }
-    adminBackdrop.style.display = 'flex';
-    adminBackdrop.setAttribute('aria-hidden','false');
-    loadEditorData();
-  }
-
-  function closeAdmin() {
-    adminBackdrop.style.display = 'none';
-    adminBackdrop.setAttribute('aria-hidden','true');
-  }
-
-  function loadEditorData() {
-    // priority: localStorage -> DOM
-    const raw = localStorage.getItem(LS_KEY);
-    let items;
-    if (raw) {
-      try {
-        items = JSON.parse(raw);
-      } catch(e) {
-        items = collectImagesFromDOM();
-      }
-    } else {
-      items = collectImagesFromDOM();
-    }
-    renderEditor(items);
-    jsonArea.value = JSON.stringify(items, null, 2);
-  }
-
-  function renderEditor(items) {
-    editorList.innerHTML = '';
-    items.forEach((it, idx) => {
-      const row = document.createElement('div');
-      row.className = 'img-row';
-      row.dataset.index = idx;
-
-      const preview = document.createElement('img');
-      preview.className = 'preview';
-      preview.src = it.src;
-      preview.alt = it.alt || '';
-
-      const meta = document.createElement('div');
-      meta.className = 'meta';
-
-      const srcInput = document.createElement('input');
-      srcInput.type = 'text';
-      srcInput.value = it.src;
-      srcInput.placeholder = 'Image src URL';
-
-      const altInput = document.createElement('input');
-      altInput.type = 'text';
-      altInput.value = it.alt || '';
-      altInput.placeholder = 'alt text';
-
-      const selectorInfo = document.createElement('div');
-      selectorInfo.className = 'small-muted';
-      selectorInfo.textContent = it.selector ? `selector: ${it.selector}` : 'selector: (not available)';
-
-      // update preview when src changes
-      srcInput.addEventListener('input', () => {
-        preview.src = srcInput.value;
-      });
-
-      meta.appendChild(srcInput);
-      meta.appendChild(altInput);
-      meta.appendChild(selectorInfo);
-
-      const actions = document.createElement('div');
-      actions.className = 'row-actions';
-
-      const applyBtn = document.createElement('button');
-      applyBtn.textContent = 'Apply';
-      applyBtn.title = 'Apply to DOM (attempts to find original element by selector)';
-      applyBtn.addEventListener('click', () => {
-        const newSrc = srcInput.value.trim();
-        const newAlt = altInput.value.trim();
-        applySingleEdit(it, newSrc, newAlt);
-        // update stored item, and json area
-        it.src = newSrc; it.alt = newAlt;
-        jsonArea.value = JSON.stringify(collectEditorItems(), null, 2);
-        alert('Applied to DOM (if matching element found).');
-      });
-
-      const deleteBtn = document.createElement('button');
-      deleteBtn.textContent = 'Delete';
-      deleteBtn.addEventListener('click', () => {
-        if (!confirm('Delete this image from editor? This will not remove it from the page unless you press Apply.')) return;
-        row.remove();
-        jsonArea.value = JSON.stringify(collectEditorItems(), null, 2);
-      });
-
-      const moveUp = document.createElement('button');
-      moveUp.textContent = '↑';
-      moveUp.title = 'Move up';
-      moveUp.addEventListener('click', () => {
-        const curIdx = parseInt(row.dataset.index,10);
-        if (curIdx <= 0) return;
-        swapRows(curIdx, curIdx-1);
-      });
-
-      const moveDown = document.createElement('button');
-      moveDown.textContent = '↓';
-      moveDown.title = 'Move down';
-      moveDown.addEventListener('click', () => {
-        const curIdx = parseInt(row.dataset.index,10);
-        swapRows(curIdx, curIdx+1);
-      });
-
-      actions.appendChild(applyBtn);
-      actions.appendChild(deleteBtn);
-      actions.appendChild(moveUp);
-      actions.appendChild(moveDown);
-
-      row.appendChild(preview);
-      row.appendChild(meta);
-      row.appendChild(actions);
-
-      editorList.appendChild(row);
-    });
-    // refresh dataset indices
-    Array.from(editorList.children).forEach((child,i)=>child.dataset.index = i);
-  }
-
-  function collectEditorItems() {
-    const rows = Array.from(editorList.querySelectorAll('.img-row'));
-    return rows.map(r => {
-      const inputs = r.querySelectorAll('input[type="text"]');
-      return {
-        id: r.dataset.id || (`img-editor-${r.dataset.index}`),
-        src: inputs[0].value.trim(),
-        alt: inputs[1].value.trim()
-      };
-    });
-  }
-
-  function applySingleEdit(item, newSrc, newAlt) {
-    // Try to find image by selector first
-    if (item.selector) {
-      try {
-        const el = document.querySelector(item.selector);
-        if (el && el.tagName.toLowerCase()==='img') {
-          if (newSrc) el.src = newSrc;
-          if (typeof newAlt !== 'undefined') el.alt = newAlt;
-          return true;
-        }
-      } catch(e) {
-        // invalid selector -> fallback
-      }
-    }
-    // fallback: find an existing image with matching old src
-    const candidates = Array.from(document.querySelectorAll('#mainPage img'));
-    const found = candidates.find(img => img.src === item.src);
-    if (found) {
-      if (newSrc) found.src = newSrc;
-      if (typeof newAlt !== 'undefined') found.alt = newAlt;
-      return true;
-    }
-    // if nothing found, append new image to #mainPage (at end) as fallback
-    const container = document.getElementById('mainPage') || document.body;
-    const newImg = document.createElement('img');
-    newImg.src = newSrc;
-    newImg.alt = newAlt || '';
-    container.appendChild(newImg);
-    return true;
-  }
-
-  function swapRows(i, j) {
-    const rows = Array.from(editorList.querySelectorAll('.img-row'));
-    if (i < 0 || j < 0 || i >= rows.length || j >= rows.length) return;
-    const a = rows[i], b = rows[j];
-    if (i < j) {
-      editorList.insertBefore(b, a);
-    } else {
-      editorList.insertBefore(a, b);
-    }
-    // update indices & json
-    Array.from(editorList.children).forEach((child,i)=>child.dataset.index = i);
-    jsonArea.value = JSON.stringify(collectEditorItems(), null, 2);
-  }
-
-  // Button events
-  adminBtn.addEventListener('click', openAdmin);
-  closeAdminBtn.addEventListener('click', closeAdmin);
-  adminBackdrop.addEventListener('click', (e) => {
-    if (e.target === adminBackdrop) closeAdmin();
-  });
-
-  reloadFromDomBtn.addEventListener('click', () => {
-    if (!confirm('Reload editor list from current DOM (this will discard unsaved editor changes). Continue?')) return;
-    loadEditorData();
-  });
-
-  saveToLSBtn.addEventListener('click', () => {
-    const items = collectEditorItems();
-    localStorage.setItem(LS_KEY, JSON.stringify(items));
-    alert('Saved to localStorage.');
-  });
-
-  applyAllBtn.addEventListener('click', () => {
-    const items = collectEditorItems();
-    // Attempt to apply each item by matching src or selector
-    items.forEach((it, idx) => {
-      const pseudoItem = { selector: it.selector, src: it.src };
-      // We'll try matching by src first (src may be new though) - prefer selector if present
-      // attempt finding by selector string stored earlier in jsonArea (if available)
-      applySingleEdit({ selector: it.selector, src: it.src }, it.src, it.alt);
-    });
-    alert('Applied editor items to DOM (best-effort).');
-  });
-
-  exportBtn.addEventListener('click', () => {
-    const items = collectEditorItems();
-    jsonArea.value = JSON.stringify(items, null, 2);
-    // Also copy to clipboard (if allowed)
-    try {
-      navigator.clipboard.writeText(jsonArea.value).then(()=> {
-        alert('Exported JSON copied to clipboard.');
-      }, ()=> {
-        alert('Exported JSON generated in the box below. Copy manually if needed.');
-      });
-    } catch(e) {
-      alert('Exported JSON generated in the box below. Copy manually if needed.');
-    }
-  });
-
-  importBtn.addEventListener('click', () => {
-    try {
-      const parsed = JSON.parse(jsonArea.value);
-      if (!Array.isArray(parsed)) throw new Error('JSON must be an array of {src,alt} objects.');
-      // Render imported items
-      renderEditor(parsed.map((p,idx)=>({ id: p.id || `imp-${idx}`, src: p.src||'', alt: p.alt||'', selector: p.selector||null })));
-      alert('Imported JSON into editor. Click "Save to localStorage" to persist or "Apply all" to update the page.');
-    } catch(e) {
-      alert('Invalid JSON: ' + e.message);
-    }
-  });
-
-  addNewImgBtn.addEventListener('click', () => {
-    const src = newImgSrc.value.trim();
-    const alt = newImgAlt.value.trim();
-    if (!src) { alert('Paste an image URL first.'); return; }
-    // append to editor list
-    const cur = collectEditorItems();
-    cur.push({ id: `new-${Date.now()}`, src, alt });
-    renderEditor(cur);
-    jsonArea.value = JSON.stringify(cur, null, 2);
-    newImgSrc.value = ''; newImgAlt.value = '';
-  });
-
-  // On load, if localStorage exists, you might want to auto-apply to page (optional)
-  // loadEditorData(); // don't auto-open modal; only open when admin clicked
-
-  // Optional helper: when page loads, if saved images in LS differ, you can prompt to apply
-  window.addEventListener('load', () => {
-    const saved = localStorage.getItem(LS_KEY);
-    if (saved) {
-      // do nothing automatically - leave to admin to choose "apply"
-      console.log('Admin image editor: saved data found in localStorage.');
-    }
-  });
-
-})();
-</script>
-
 </body>
 </html>
