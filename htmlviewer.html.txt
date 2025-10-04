@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Video Upload → Get Embed HTML</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background:#0f1720;
+      color:#e6eef8;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:100vh;
+      margin:0;
+    }
+    .card {
+      background:#0b1220;
+      padding:20px;
+      border-radius:10px;
+      width:95%;
+      max-width:680px;
+      box-shadow:0 6px 18px rgba(0,0,0,.6);
+    }
+    input[type=file] {
+      display:block;
+      margin:12px 0;
+    }
+    button {
+      padding:10px 16px;
+      border-radius:6px;
+      border:0;
+      background:#2563eb;
+      color:white;
+      cursor:pointer;
+    }
+    button:disabled {
+      background:#555;
+    }
+    pre {
+      background:#071127;
+      padding:12px;
+      border-radius:8px;
+      overflow:auto;
+      color:#9be3ff;
+    }
+    .small {
+      font-size:13px;
+      color:#9fb2c9
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Upload Video → Get Embed Code</h2>
+    <p class="small">Choose a video file and upload. You’ll get a direct link + HTML embed code.</p>
+
+    <form id="uploadForm">
+      <input id="videoFile" name="video" type="file" accept="video/*" required />
+      <div style="display:flex;gap:8px;align-items:center">
+        <button id="uploadBtn" type="submit">Upload</button>
+        <span id="status" class="small"></span>
+      </div>
+    </form>
+
+    <div id="result" style="margin-top:16px; display:none">
+      <h4>Direct URL</h4>
+      <pre id="urlText"></pre>
+
+      <h4>Embed HTML</h4>
+      <pre id="embedText"></pre>
+
+      <h4>Preview</h4>
+      <div id="preview"></div>
+    </div>
+  </div>
+
+<script>
+document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const fileInput = document.getElementById('videoFile');
+  if (!fileInput.files || !fileInput.files[0]) return;
+  const file = fileInput.files[0];
+  const form = new FormData();
+  form.append('video', file);
+
+  const status = document.getElementById('status');
+  const uploadBtn = document.getElementById('uploadBtn');
+  uploadBtn.disabled = true;
+  status.textContent = 'Uploading...';
+
+  try {
+    // Make sure your backend has an /upload endpoint
+    const resp = await fetch('/upload', { method: 'POST', body: form });
+    const data = await resp.json();
+    if (!data.success) throw new Error(data.error || 'Upload failed');
+
+    document.getElementById('result').style.display = 'block';
+    document.getElementById('urlText').textContent = data.url;
+    document.getElementById('embedText').textContent = data.embedHtml;
+    document.getElementById('preview').innerHTML = data.embedHtml;
+    status.textContent = 'Upload complete ✅';
+  } catch (err) {
+    console.error(err);
+    status.textContent = 'Error: ' + (err.message || err);
+  } finally {
+    uploadBtn.disabled = false;
+  }
+});
+</script>
+</body>
+</html>
