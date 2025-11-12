@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta name="description" content="89 flex-Anime site & other"/>
+<link rel="canonical" href="https://89flexy.github.io/Home/" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="89 Flexy" />
+<meta property="og:description" content="89Flex-Anime Site & Other" />
+<meta property="og:url" content="https://89flexy.github.io/Home/" />
+<meta property="og:site_name" content="89 Flexy" />
+<link rel="icon" href="https://i.ibb.co/ymKVH9q6/20250920-155127.png" sizes="32x32" />
+<link rel="icon" href="https://i.ibb.co/ymKVH9q6/20250920-155127.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://i.ibb.co/ymKVH9q6/20250920-155127.png" />
+<meta name="msapplication-TileImage" content="https://i.ibb.co/ymKVH9q6/20250920-155127.png" /> 
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>89 Flexy</title>
+<!-- LOCK SNIPPET (with 24-day expiry + hash check) -->
+<style>
+  #lockScreen {
+    position: fixed; inset: 0;
+    background: linear-gradient(-45deg,#0066ff,#ff0040,#ff66b2,#9400d3);
+    background-size: 400% 400%; animation: gradientFlow 14s ease infinite;
+    display:flex;flex-direction:column;justify-content:center;align-items:center;
+    z-index:9999;font-family:"Poppins",sans-serif;transition:opacity .6s ease;
+  }
+  @keyframes gradientFlow {
+    0%{background-position:0% 50%}25%{background-position:50% 100%}50%{background-position:100% 50%}75%{background-position:50% 0%}100%{background-position:0% 50%}
+  }
+  .profile-logo{ width:110px;height:110px;border-radius:50%;cursor:pointer;box-shadow:0 0 30px rgba(255,255,255,.6); }
+  .key-container{ margin-top:20px; display:flex; flex-direction:column; align-items:center; }
+  .key-container input{ padding:10px 14px; border-radius:8px; background:transparent; border:1.5px solid #fff; color:#fff; width:200px; text-align:center; outline:none; margin-bottom:12px;}
+  .key-container button{ padding:8px 20px; border-radius:8px; background:transparent; border:1.5px solid #fff; color:#fff; cursor:pointer;}
+  .error{ color:#fff; margin-top:10px; font-size:15px; text-shadow:0 0 4px #000; }
+</style>
+
+<div id="lockScreen" aria-hidden="false">
+
+  <div class="key-container" id="keyContainer">
+    <input type="password" id="keyInput" placeholder="Enter Key">
+    <button id="proceedBtn">Proceed</button>
+    <div class="error" id="errorMsg"></div>
+  </div>
+</div>
+
+<noscript>
+  <style>#lockScreen{display:none!important}#mainContent{display:block!important}</style>
+  <div style="position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#000;color:#fff;z-index:10000;">
+    This site requires JavaScript to enforce the lock. Please enable JavaScript.
+  </div>
+</noscript>
+
+<!-- wrap your full page content here -->
+<div id="mainContent" style="display:none;">
+  <!-- full site content -->
+</div>
+
+<script>
+(function(){
+  // CONFIG
+  const STORAGE_KEY = "89flexy_key_v1";     // localStorage key name (versioned)
+  const EXPIRY_DAYS = 24;                   // expiry in days
+  // SHA-256 hex of your secret key (DO NOT put plain key here)
+  const CORRECT_HASH = "73f57d8b692f8157f6d120e165f2155ad20471b377cf2b22dbf1128a834c91bd";
+
+  const lockScreen = document.getElementById("lockScreen");
+  const keyContainer = document.getElementById("keyContainer");
+  const logo = document.getElementById("profileLogo");
+  const input = document.getElementById("keyInput");
+  const btn = document.getElementById("proceedBtn");
+  const errorMsg = document.getElementById("errorMsg");
+  const main = document.getElementById("mainContent");
+
+  // helper: sha256 -> hex using Web Crypto API
+  async function sha256Hex(text){
+    const enc = new TextEncoder().encode(text);
+    const hashBuf = await crypto.subtle.digest("SHA-256", enc);
+    const hashArray = Array.from(new Uint8Array(hashBuf));
+    return hashArray.map(b => b.toString(16).padStart(2,"0")).join("");
+  }
+
+  // Save to storage with timestamp (hash only)
+  function saveUnlock(){
+    const payload = { h: CORRECT_HASH, t: Date.now() };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+  }
+
+  // Validate saved lock (hash match + not expired)
+  function isSavedValid(){
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if(!raw) return false;
+      const obj = JSON.parse(raw);
+      if(!obj.h || obj.h !== CORRECT_HASH) { localStorage.removeItem(STORAGE_KEY); return false; }
+      const ageMs = Date.now() - (obj.t || 0);
+      if(ageMs > EXPIRY_DAYS * 24 * 60 * 60 * 1000) { localStorage.removeItem(STORAGE_KEY); return false; }
+      return true;
+    } catch(e) { localStorage.removeItem(STORAGE_KEY); return false; }
+  }
+
+  // unlock UI
+  function unlockUI(){
+    lockScreen.style.opacity = "0";
+    setTimeout(()=>{ lockScreen.style.display = "none"; main.style.display = "block"; }, 450);
+    saveUnlock();
+  }
+
+  // On load: check saved validity
+  window.addEventListener("load", () => {
+    if(isSavedValid()){
+      lockScreen.style.display = "none";
+      main.style.display = "block";
+    } else {
+      lockScreen.style.display = "flex";
+      main.style.display = "none";
+    }
+  }, false);
+
+  // show input only after logo click
+  keyContainer.style.display = "none";
+  logo.addEventListener("click", () => {
+    keyContainer.style.display = "flex";
+    setTimeout(()=> input.focus(), 50);
+  });
+
+  // Enter key support
+  input.addEventListener("keydown", (e) => { if(e.key === "Enter") btn.click(); });
+
+  // verify on click
+  btn.addEventListener("click", async () => {
+    const val = input.value || "";
+    if(!val.trim()){ errorMsg.textContent = "Enter key"; return; }
+    const hv = await sha256Hex(val.trim());
+    if(hv === CORRECT_HASH){
+      errorMsg.textContent = "";
+      unlockUI();
+    } else {
+      errorMsg.textContent = "❌ Wrong Key! ❌";
+      input.value = "";
+    }
+  });
+
+})();
+</script>
+<!-- END LOCK SNIPPET -->
+<!-- LOCK UI -->
+<div id="payLock" style="
+  position:fixed; inset:0; display:flex; align-items:center; justify-content:center; z-index:9999;
+  background: linear-gradient(-45deg,#0066ff,#ff0040,#ff66b2,#9400d3);
+  background-size:400% 400%; animation: gradientFlow 14s ease infinite; flex-direction:column; text-align:center; color:#fff;
+">
+  <!-- QR above profile logo -->
+  <img id="qrImg" src="https://i.ibb.co/qMHhNt77/Paytm-QRcode-1762947236614-1.jpg" alt="QR" style="width:150px;height:150px;border-radius:12px;margin-bottom:12px;box-shadow:0 6px 20px rgba(0,0,0,0.4);">
+
+  <img src="https://i.ibb.co/fVmHbfP5/20251103-224113.jpg" class="profile-logo" style="width:100px;height:100px;border-radius:50%;margin-bottom:14px;box-shadow:0 0 25px rgba(255,255,255,0.6);">
+
+  <div id="payHint" style="margin-bottom:12px;font-size:16px;">Scan with UPI / Paytm / PhonePe to pay ₹1</div>
+  <div id="payMsg" style="margin-top:12px;font-size:15px;color:#ffeb3b;"></div>
+</div>
+
+<style>
+@keyframes gradientFlow {0%{background-position:0% 50%}25%{background-position:50% 100%}50%{background-position:100% 50%}75%{background-position:50% 0%}100%{background-position:0% 50%}}
+</style>
+
+<script>
+(async function(){
+  const qrImg = document.getElementById('qrImg');
+  const payLock = document.getElementById('payLock');
+  const payMsg = document.getElementById('payMsg');
+
+  // Start payment check on load
+  async function startPayment() {
+    payMsg.textContent = "Waiting for payment...";
+    // Create transaction
+    const res = await fetch('/create-payment',{method:'POST'});
+    if(!res.ok){ payMsg.textContent = 'Network error'; return; }
+    const data = await res.json();
+    const tx = data.txId;
+    qrImg.src = data.qrImageUrl;
+
+    pollPayment(tx);
+  }
+
+  // Poll backend for payment success
+  let pollTimer = null;
+  async function pollPayment(txId){
+    let attempts = 0;
+    const maxAttempts = 60*5/3; // ~5 minutes
+    pollTimer = setInterval(async () => {
+      attempts++;
+      try{
+        const r = await fetch(`/check-payment?tx=${encodeURIComponent(txId)}`);
+        const j = await r.json();
+        if(j.status === 'paid'){
+          clearInterval(pollTimer);
+          localStorage.setItem('sessionToken', j.sessionToken || txId);
+          payLock.style.display='none';
+        } else if(j.status === 'expired' || attempts>=maxAttempts){
+          clearInterval(pollTimer);
+          payMsg.textContent = 'Payment timed out. Try again.';
+        }
+      }catch(e){ console.error(e); }
+    }, 3000);
+  }
+
+  startPayment();
+})();
+</script>
+<style>
+  /* 🔹 Preloader styles */
+  
+
+<style>
+
+body {
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#000;
+  color:#fff;
+}
+header {
+  position:relative;
+  width:100%;
+}
+#headerImage {
+  width:100%;
+  height:auto;
+  display:block;
+}
+header::after {
+  content:'';
+  position:absolute;
+  top:0; left:0;
+  width:100%;
+  height:100%;
+  background:linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0) 50%, rgba(0,0,0,0.7));
+  pointer-events:none;
+}
+
+/* Search bar styling */
+.search-container {
+  position: absolute;
+  top: 35%; /* vertical position */
+  left: 44%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 600px;
+  z-index: 10;
+}
+.search-container input {
+  width: 100%;
+  padding: 12px 20px;
+  border-radius: 50px;
+  border: 3px solid #fff;
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  font-size: 16px;
+  outline: none;
+}
+.search-container input::placeholder {
+  color:#ddd;
+}
+.search-container input:focus {
+  background: rgba(255,255,255,0.2);
+  border-color:#fff;
+}
+
+/* Search results dropdown */
+#results {
+  position: absolute;
+  top: calc(40% + 20px); /* below the search bar */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 89%;
+  max-width: 600px;
+  background: #111;
+  border-radius: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 20;
+  top:38%;
+}
+.result-item {
+  padding: 12px 15px;
+  border-bottom: 1px solid #222;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.result-item:hover {
+  background: #222;
+}
+</style>
+</head>
+<body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>89FLEX</title>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+<style>
+body {
+  margin: 0;
+  background-color: #000;
+  font-family: 'Poppins', sans-serif;
+  color: white;
+}
+
+/* --- Top Bar --- */
+.top-bar {
+  background: #fff;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2000;
+}
+
+.top-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.top-bar-left .material-icons-round {
+  font-size: 28px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.top-bar-title {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.top-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.top-bar-right .material-icons-round {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Page content */
+.content {
+  padding-top: 65px;
+  text-align: center;
+}
+
+/* --- Overlay --- */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  z-index: 1000;
+  transition: opacity 0.3s ease;
+}
+
+/* --- Side Menu --- */
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: -260px;
+  width: 220px;
+  height: 100%;
+  background: rgba(20, 20, 20, 0.85);
+  color: white;
+  transition: left 0.3s ease;
+  z-index: 1500;
+  padding-top: 70px;
+  border-right: 1px solid rgba(255,255,255,0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Menu Header (left aligned now) */
+.menu-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 20px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.menu-header img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid white;
+}
+
+.menu-header h3 {
+  margin: 0;
+  font-weight: 500;
+  font-size: 17px;
+}
+
+/* Menu links */
+.side-menu a {
+  display: flex;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+  padding: 12px 20px;
+  font-size: 17px;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.side-menu a i {
+  margin-right: 12px;
+  font-size: 22px;
+}
+
+.side-menu a:hover {
+  background: rgba(255,255,255,0.1);
+  transform: translateX(5px);
+}
+</style>
+</head>
+<body>
+
+<!-- Top Bar -->
+<div class="top-bar">
+  <div class="top-bar-left">
+    <span class="material-icons-round" id="menuBtn">menu</span>
+    <span class="top-bar-title">89Flexy</span>
+  </div>
+  <div class="top-bar-right">
+    <span class="material-icons-round">home</span>
+    <span class="material-icons-round" onclick="location.reload()">refresh</span>
+    <span class="material-icons-round">person</span>
+    <span class="material-icons-round">settings</span>
+  </div>
+</div>
+
+<!-- Side Menu -->
+<div class="side-menu" id="sideMenu">
+  <div class="menu-header">
+    <img src="https://i.ibb.co/jNvVmtD/89-Flexy-20251102-124509-0000.png" alt="logo">
+    <h3>Flexy</h3>
+  </div>
+  <a href="index.html"><i class="material-icons-round">home</i>Home</a>
+  <a href="Movies.html"><i class="material-icons-round">movie</i>Anime Movies</a>
+  <a href="Series.html"><i class="material-icons-round">tv</i>Series</a>
+    <a href="Others.html"><i class="material-icons-round">movie</i>Movies/Series</a>
+  <a href="Setting.html"><i class="material-icons-round">settings</i>Settings</a>
+</div>
+
+
+<!-- Overlay -->
+<div class="overlay" id="overlay"></div>
+
+<script>
+const menuBtn = document.getElementById("menuBtn");
+const sideMenu = document.getElementById("sideMenu");
+const overlay = document.getElementById("overlay");
+let isOpen = false;
+
+menuBtn.addEventListener("click", () => {
+  if (!isOpen) {
+    sideMenu.style.left = "0";
+    overlay.style.display = "block";
+    menuBtn.textContent = "close";
+    isOpen = true;
+  } else {
+    sideMenu.style.left = "-260px";
+    overlay.style.display = "none";
+    menuBtn.textContent = "menu";
+    isOpen = false;
+  }
+});
+
+overlay.addEventListener("click", () => {
+  sideMenu.style.left = "-260px";
+  overlay.style.display = "none";
+  menuBtn.textContent = "menu";
+  isOpen = false;
+});
+</script>
+<br>
+<br>
+<header>
+  <img id="headerImage" src="https://i.ibb.co/9H5p70Jt/Picsart-25-09-20-16-41-45-083.jpg" alt="Header">
+</header>
+
+<style>
+
+header {
+  position: relative; /* important so logo can position inside */
+  width: 100%;
+}
+
+#headerImage {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.logo {
+  position: absolute;
+  top: 15px;   /* distance from top */
+  left: 20px;  /* distance from left */
+  height: 85px; /* adjust size */
+  width: 80%;
+}
+</style>
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Search" onkeyup="liveSearch()">
+  </div>
+</header>
+
+<div id="results"></div>
+
+<script>
+
+// Example anime list (replace with your own)
+const animeList = [
+  { title: "A Couple of Cuckoos", url: "A Couple of Cuckoos.html" },
+  { title: "My Dress-Up Darling", url: "My Dress-Up Darling.html" },
+
+  { title: "Shoot! Goal to the Future", url: "Shoot! Goal to the Future.html" },
+  { title: "Kaiju No. 8", url: "Kaiju No.8.html" },
+  { title: "Death Note", url: "Death Note.html" },
+  { title: "Sakamoto Days", url: "Sakamoto Days.html" },
+  { title: "Dan Da Dan", url: "Dan Da Dan.html" },
+  { title: "Classroom of the Elite", url: "Classroom of Elite.html" },
+  { title: "Haikyuu!! The Dumpster Battle", url: "HAIKYU!! The Dumpster Battle.html" },
+  { title: "Demon Slayer: Infinity Castle", url: "Demon Slayer Kimetsu no Yaiba Infinity Castle.html" },
+  { title: "Sitare Zameen Par", url: "SZP.html" },
+  { title: "Tumbbad", url: "TUM.html" },
+  { title: "Bhagwat Chapter One Raakshas", url: "BCOR.html" },
+  { title: "Wreck-It Ralph ", url: "RBTI.html" },
+  { title: "Panchayat", url: "Panchayat1.html" },
+  { title: "Kantara Ch-1", url: "Kan1.html" },
+{ title: "Sunny sanskari ki Tulsi kumari", url: "SSKTK.html" },
+  { title: "Alice in Bordarland", url: "Alice3.html" },
+  { title: "Ne Zha", url: "Nezha.html" },
+  { title: "Wednesday", url: "Wednesday.html" },
+    { title: "Thamma", url: "Thamma.html" },
+    { title: "Squid Game", url: "SG.html" },
+  { title: "Coolie", url: "Coolie.html" },
+    { title: "Thanal", url: "Thanal.html" },
+    { title: "Kishkindhapuri", url: "KK.html" },
+    { title: "Ne Zha 2", url: "NeZha2.html" },
+  { title: "Housefull 5A", url: "Housefull 5A.html" },
+  { title: "Housefull 5B", url: "Housefull 5B.html" },
+    { title: "Param Sundari", url: "PS.html" },
+  { title: "Bhool Chuk Maaf", url: "BCM.html" },
+  { title: "Chhaava", url: "Chhaava.html" },
+  { title: "Stree 2", url: "St2.html" },
+    { title: "Solo Leveling", url: "SL.html" },
+    { title: "Greater Kalesh", url: "GK.html" },
+    { title: "Munjya", url: "Mun.html" },
+    { title: "Mirai", url: "Mirai.html" },
+      { title: "We Can Be Heroes", url: "WCBH.html" },
+    { title: "Bad Newz", url: "BN.html" },
+    { title: "Baby John", url: "BJ.html" },
+    { title: "PK", url: "PK.html" },
+  { title: "Vash", url: "Vash.html" },
+  { title: "Ek Deewane Ki Deewaniyat", url: "ED.html" },
+    { title: "Super 30", url: "S3.html" },
+    { title: "IT Welcome to Derry", url: "IT.html" },
+  { title: "Bahubali The Epic", url: "Bahu.html" },
+    { title: "Lokah Chapter 1", url: "LC.html" },
+    { title: "Jujutsu Kaisen 0", url: "JK0.html" },
+    { title: "Re Monster", url: "RM.html" },
+    { title: "With You, Our Love Will Make It Through", url: "WY.html" },
+    { title: "Mechanical Marie", url: "MM.html" },
+  { title: "Spirited Away", url: "SA.html" },
+    { title: "Ufff Yeh Siyapaa", url: "UF.html" },
+    { title: "Takopi's Original Sin", url: "TOS.html" },
+  { title: "Akuma Kun", url: "Kun.html" },
+    { title: "Idli Kadai", url: "IK.html" },
+  { title: "The Ba**ds of Bollywood", url: "BOB.html" },
+    { title: "Swades", url: "Swades.html" },
+    { title: "Jolly LLB", url: "Jolly.html" },
+    { title: "Jolly LLB 2", url: "Jolly2.html" },
+  { title: "Robinhood", url: "RBH.html" },
+    { title: "Chidiya", url: "Chi.html" },
+  { title: "", url: ".html" },
+    { title: "", url: ".html" },
+  { title: "", url: ".html" },
+    { title: "", url: ".html" },
+  { title: "", url: ".html" },
+    { title: "", url: ".html" },
+  { title: "", url: ".html" },
+    { title: "", url: ".html" },
+    { title: "", url: ".html" },
+    { title: "", url: ".html" },
+  { title: "", url: ".html" },
+    { title: "", url: ".html" },
+  { title: "", url: ".html" },
+    { title: "", url: ".html" },
+    { title: "Vash Level 2", url: "Vash2.html" },
+  { title: "3 Idiots", url: "3 Idiots.html" },
+  { title: "Kantara", url: "Kantara.html" },
+  { title: "CrazXy", url: "Crazxy.html" },
+  { title: "Spy x Family Movie Code White", url: "Spy.html" },
+  { title: "The Traitors", url: "Traitor.html" },
+    { title: "The Angel Next Door Spoils Me Rotten", url: "ANDSMR.html" },
+    { title: "Chainsaw Man the Movie Reze Arc", url: "Chainsaw Man the Movie Reze Arc.html" },
+{ title: "Campfire Cooking in Another World", url: "Campfire Cooking in Another.html" },
+];
+
+function liveSearch() {
+  const query = document.getElementById("searchInput").value.toLowerCase();
+  const resultsDiv = document.getElementById("results");
+  resultsDiv.innerHTML = "";
+
+  if(query.length === 0) return;
+
+  const filtered = animeList.filter(anime => anime.title.toLowerCase().includes(query));
+  if(filtered.length === 0) {
+    resultsDiv.innerHTML = '<div class="result-item">No results found.</div>';
+    return;
+  }
+
+  filtered.forEach(anime => {
+    const div = document.createElement("div");
+    div.classList.add("result-item");
+    div.textContent = anime.title;
+    div.onclick = () => window.location.href = anime.url;
+    resultsDiv.appendChild(div);
+  });
+}
+</script>
+<br>
+<br
+>
+<br>
+<br> 
+        <p>👨🏻‍💻 🚧Under Devlopement🚧 👨🏻‍💻</p>
+<style>p {
+  display: flex;
+  justify-content: center;  /* h
